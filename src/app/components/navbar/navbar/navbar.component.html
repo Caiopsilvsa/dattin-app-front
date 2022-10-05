@@ -1,24 +1,20 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
     <div class="container">
-        <a class="navbar-brand" href="#">DatingApp</a>
+        <a class="navbar-brand" routerLink="/">DatingApp</a>
         <ul class="navbar-nav mr-auto" *ngIf="currentUser$ | async ">
             <li class="nav-item">
-                <a class="nav-link " href="#">Matches</a>
+                <a class="nav-link " routerLink="/members">Matches</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">List</a>
+                <a class="nav-link" routerLink="/list">List</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Messages</a>
+                <a class="nav-link" routerLink="/messages">Messages</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" (click)="Logout()">Logout</a>
-            </li>
-        
         </ul>
 
-        <div class="dropdown" *ngIf="currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light" dropdownToggle>Welcome user</a>
+        <div class="dropdown" *ngIf="(currentUser$ | async) as user" dropdown>
+            <a class="dropdown-toggle text-light" dropdownToggle>Welcome {{user.userName | titlecase}}</a>
             <div class="dropdown-menu mt-3" *dropdownMenu>
                 <a class="dropdown-item">Edit Profile</a>
                 <div class="dropdown-divider"></div>
@@ -30,7 +26,7 @@
         class="form-inline mt-2 mt-md-0" [formGroup]="loginForm" (ngSubmit)="SubmitLogin(loginForm.value)">
             <input formControlName = "username" class="form-control mr-sm-2" type="text" placeholder="Nome">
             <input formControlName = "password" class="form-control mr-sm-2" type="text" placeholder="Senha">
-            <button class="btn btn-outline-success" type="submit">Login</button>
+            <button class="btn btn-success" type="submit">Login</button>
         </form>
     </div>
 

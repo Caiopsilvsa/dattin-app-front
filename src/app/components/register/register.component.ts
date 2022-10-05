@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AccountServiceService } from 'src/app/services/account-service.service';
 import { Output, EventEmitter } from '@angular/core'; 
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +11,7 @@ import { Output, EventEmitter } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
-  constructor(private formBuilder:FormBuilder, private accountService:AccountServiceService) { }
+  constructor(private formBuilder:FormBuilder, private accountService:AccountServiceService,private toast:ToastrService) { }
 
   RegisterForm = this.formBuilder.group({
     username: [''],
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit {
        console.log(data)
        this.cancel();
     }, error =>{
-      console.log(error)
+      this.toast.error(error.error)
     })
   }
 
