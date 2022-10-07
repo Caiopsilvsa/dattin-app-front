@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,10 @@ import { ListComponent } from './components/list/list/list.component';
 import { MessagesComponent } from './components/messages/messages/messages.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared.module';
+import { NotFoundComponent } from './errors/not-found/not-found/not-found.component';
+import { TestErrorsComponent } from './errors/test-errors/test-errors/test-errors.component';
+import { ServeErrorComponent } from './errors/serve-error/serve-error/serve-error.component';
+import { ErrorInterceptor } from './Interceptors/error-interceptor.interceptor';
 
 
 
@@ -28,7 +32,10 @@ import { SharedModule } from './modules/shared.module';
     MemberListComponent,
     MemberDetailComponent,
     ListComponent,
-    MessagesComponent
+    MessagesComponent,
+    NotFoundComponent,
+    TestErrorsComponent,
+    ServeErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,7 @@ import { SharedModule } from './modules/shared.module';
     ReactiveFormsModule,
     SharedModule
   ],
-  providers: [],
+  providers: [ {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
