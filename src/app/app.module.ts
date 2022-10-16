@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
-import { BsDropdownModule,BsDropdownConfig } from 'ngx-bootstrap/dropdown';
-
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -14,14 +14,21 @@ import { MemberListComponent } from './components/members/member-list/member-lis
 import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
 import { ListComponent } from './components/list/list/list.component';
 import { MessagesComponent } from './components/messages/messages/messages.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SharedModule } from './modules/shared.module';
 import { NotFoundComponent } from './errors/not-found/not-found/not-found.component';
 import { TestErrorsComponent } from './errors/test-errors/test-errors/test-errors.component';
 import { ServeErrorComponent } from './errors/serve-error/serve-error/serve-error.component';
 import { ErrorInterceptor } from './Interceptors/error-interceptor.interceptor';
-
-
+import { MemberCardComponent } from './components/members/member-card/member-card/member-card.component';
+import { TokenInterceptorInterceptor } from './Interceptors/token-interceptor.interceptor';
+import { TabsModule, TabsetConfig } from 'ngx-bootstrap/tabs';
+import { ToastrModule } from 'ngx-toastr';
+import {NgxGalleryModule} from '@kolkov/ngx-gallery';
+import { MemberEditComponent } from './components/members/member-edit/member-edit/member-edit.component';
+import { CanDeactivateGuard } from './guards/can-deactivate.guard';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { SpinnerInterceptorInterceptor } from './Interceptors/spinner-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,9 @@ import { ErrorInterceptor } from './Interceptors/error-interceptor.interceptor';
     MessagesComponent,
     NotFoundComponent,
     TestErrorsComponent,
-    ServeErrorComponent
+    ServeErrorComponent,
+    MemberCardComponent,
+    MemberEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +52,22 @@ import { ErrorInterceptor } from './Interceptors/error-interceptor.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    TabsModule,
+    NgxGalleryModule,
+    NgxSpinnerModule,
+    BsDropdownModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }) 
   ],
-  providers: [ {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true} ],
+  providers: [ 
+              TabsetConfig, 
+              CanDeactivateGuard,
+               {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+               {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
+               {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

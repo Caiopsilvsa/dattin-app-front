@@ -10,10 +10,10 @@ import { AccountServiceService } from './services/account-service.service';
 })
 export class AppComponent implements OnInit {
   
-   constructor (private http: HttpClient, private accountService:AccountServiceService){}
+   constructor (private accountService:AccountServiceService){}
 
   ngOnInit(): void {
-    this.getUsers(), this.setCurrentUser()
+     this.setCurrentUser()
   }
   title = 'DattingApp';
   users:any
@@ -22,11 +22,4 @@ export class AppComponent implements OnInit {
    const user:User = JSON.parse(localStorage.getItem('user'))
    this.accountService.setCurrentUser(user)
   }
-
-  getUsers(){
-    this.http.get("https://localhost:5001/Api/controller").subscribe(data=>{
-      this.users = data
-    })
-  }  
-
 }
