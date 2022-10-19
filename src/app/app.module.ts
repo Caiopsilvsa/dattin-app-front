@@ -29,6 +29,9 @@ import { MemberEditComponent } from './components/members/member-edit/member-edi
 import { CanDeactivateGuard } from './guards/can-deactivate.guard';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SpinnerInterceptorInterceptor } from './Interceptors/spinner-interceptor.interceptor';
+import { TextInputComponent } from './components/forms/text-input/text-input/text-input.component';
+import { DateInputComponent } from './components/forms/date-input/date-input/date-input.component';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { SpinnerInterceptorInterceptor } from './Interceptors/spinner-intercepto
     ServeErrorComponent,
     MemberCardComponent,
     MemberEditComponent,
+    TextInputComponent,
+    TextInputComponent,
+    DateInputComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +62,7 @@ import { SpinnerInterceptorInterceptor } from './Interceptors/spinner-intercepto
     TabsModule,
     NgxGalleryModule,
     NgxSpinnerModule,
+    BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
@@ -64,6 +71,7 @@ import { SpinnerInterceptorInterceptor } from './Interceptors/spinner-intercepto
   providers: [ 
               TabsetConfig, 
               CanDeactivateGuard,
+              BsDatepickerConfig,
                {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
                {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorInterceptor, multi: true},
                {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptorInterceptor, multi: true}

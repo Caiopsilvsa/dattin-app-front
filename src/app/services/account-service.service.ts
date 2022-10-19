@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Member } from '../models/Member';
 import { User } from '../models/user';
 
 @Injectable({
@@ -27,7 +28,7 @@ export class AccountServiceService {
       )
     }
 
-    Register(user:any){
+    Register(user:Member){
       return this.http.post(this.baseUrl + 'Register', user).pipe(
         map((response:User)=>{
           const user = response
