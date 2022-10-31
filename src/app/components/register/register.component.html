@@ -16,7 +16,9 @@
         [label]='"Username"'></app-text-input>
     <app-text-input [formControl]='RegisterForm.controls["knowAs"]' 
         [label]='"Known As"'></app-text-input>
-   
+    <app-date-input [formControl]='RegisterForm.controls["dateOfBirth"]' [label]='" date off birth"' [maxDate]="maxDate"> 
+
+    </app-date-input>
     <app-text-input [formControl]='RegisterForm.controls["city"]' 
         [label]='"City"'></app-text-input>
     <app-text-input [formControl]='RegisterForm.controls["country"]' 
