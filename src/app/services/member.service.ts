@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Predicate } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -75,6 +75,16 @@ export class MemberService {
     return this.http.put<Member>(this.baseUrl + 'user', member)
    }
 
+   AddLike(username:string){
+     return this.http.post(this.baseUrl + username,{}) 
+   }
+
+   GetLikes(predicate:string, pageNumber, pageSize){
+      let params = this.GetpaginationHeaders(pageNumber, pageSize)
+        params = params.append('predicate',predicate)
+      
+      return this.getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params)
+   }
    
    GetpaginationHeaders(pageNumber: number, pageSize: number) {
      let paginationParams = new HttpParams() 
